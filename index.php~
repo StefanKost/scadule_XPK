@@ -1,0 +1,437 @@
+<?
+session_start(); 
+require_once "classes/queries.php";
+
+    $select = new Query();
+    $select->openConnect("root","1234", "khpk");
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="">
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <title>Складання розкладу</title>
+ </head>
+ <body>
+	<div class = "wrapper">
+	<div class = "wrap">
+		<div class="hwrapper">
+			<div class = "header">
+				<h1>Мій рідний край – Хмельницький</h1>
+				<img src="img/logo.png" alt="Герб"  id = "logo">
+				<div class="login">
+                    <span <?if(isset($_SESSION['user'])) echo("onclick='var a = confirm(\"Ви дійсно бажаєте вийти з профілю?\");if(a)window.location=\"logout.php\"'");?>><?php if(isset($_SESSION['user']))echo("Привіт!, ".$_SESSION['user']); else echo("Увійти");?></span>
+                    <?if(!isset($_SESSION['user'])):?>
+                    <div class="form_login" style="display: none;">
+                        <form action="login.php" method="post">
+                            <label>Логін:</label>
+                            <input id="log" type="text" name="log">
+                            <label>Пароль: </label>
+                            <input id="pass" type="password" name="pass">
+                            <div id="login" >Відправити</div>
+                            <a href="index.php?q=reg">Зареєструватись</a>
+                        </form>
+                    </div>
+                    <? endif;?>
+                </div>
+			</div>
+			
+		</div>
+		<div class = "menu">
+				<ul>
+					<li><a href="index.php">Головна сторінка</a></li>
+					<li><a href="index.php?q=photo&page=1">Фотогалерея</a></li>
+					<li><a href="index.php?q=study">Навчальні заклади</a></li>
+				</ul>
+			</div>
+		<?if($cat == "index"):?>
+		<div class="contentwrap">
+		<div class="slider">
+				<ul>
+					<li><img src="img/object_tb77.jpg" alt="" width="1000px" height="400px"/></li>
+					<li><img src="img/0_d9947_7a1827ef_XXL.jpg" alt="" width="1000px" height="400px"/></li>
+					<li><img src="img/filarmonia.jpg" alt="" width="992px" height="400px"/></li>
+					<li><img src="img/815a23c9-246c-40f2-a4f8-abb8ff88b403_large.jpg" alt="" width="1000px" height="400px"/></li>
+					<li><img src="img/e3e5462e2def.jpg" alt="" width="1000px" height="400px"/></li>
+					<li><img src="img/Хмельницький_тролейбус_№_7а_в_центрі_міста.jpg" alt="" width="1000px" height="400px"/></li>
+					<li><img src="img/Хмельницький_обласний_український_музично-драматичний_театр_ім._Михайла_Старицького.jpg" alt="" width="1000px" height="400px"/></li>
+					<li><img src="img/Парк_імені_Івана_Франка_в_місті_Хмельницькому_01.jpg" alt="" width="1000px" height="400px"/></li>
+					<li><img src="img/Хмельницький_художній_музей.jpg" alt="" width="1000px" height="400px"/></li>
+					<li><img src="img/Кінотеатр_ім._Шевченка_Хмельницький.jpg" alt="" width="1000px" height="400px"/></li>
+				</ul>
+		</div>
+		
+<div class = "content">
+    <div id="myCarousel" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="item active">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Історія міста</h1>
+              <p>Територія, на якій розташований <span id="city">Хмельницький</span>, була заселена ще в давні часи. Дослідження виявили в околицях міста чимало археологічних пам'яток. Зокрема, на схід від мікрорайону <span id="micro">Лезневе</span> - поселення з матеріалами доби бронзи 2 тис. до н. е. та скіфського часу 7-3 ст. до. н. е., у мікрорайоні <span id="micro">Озерна</span> - багатошарове поселення з матеріалами раннього залізного віку І тис. до н. е., у мікрорайоні <span id="micro">Дубове</span> - поселення скіфського часу 7-3 ст. до. н. е., у мікрорайонах <span id="micro">Гречани</span> та <span id="micro">Озерна</span> - поселення черняхівської культури 3-4 ст. тощо. До наших днів збереглися кургани, які датуються археологами 7-3 ст. до. н. е. (<span id="kyrsiv">скіфський час</span>) - один у мікрорайоні <span id="micro">Заріччя</span> та два на південний схід від мікрорайону <span id="micro">Ракове</span>. </p>
+			  <p>Місто <span id="city">Хмельницький</span> має майже 600-річну історію і веде свій родовід від невеличкого поселення <span id="pos">Плоскирів</span> або <span id="pos">Плоскирівці</span>. Дата заснування міста невідома, а стосовно першої згадки, достовірно можна стверджувати про існування Плоскирова (Плоскировець) вже у першій половині XV ст. На той час Поділля стає ареною суперечки між литовськими князями та польським королівством, яка закінчилася на користь останніх. Частина Поділля, включаючи Побужжя, відійшла під владу Польщі. Король Владислав ІІ Ягайло в 1431 р. надає шляхті привілеї на подільські володіння. Серед населених пунктів, що згадуються у документах королівської канцелярії того року, знаходимо поселення під назвою Плоскирівці та відповідний до цього запис, що 10 лютого 1431 року у місті Сопоті король Владислав ІІ Ягайло записав Янові Чанстуловському за 100 гривень право на володіння селами Голисин (нині село Олешин Хмельницького району) та Плоскирівці на річці Південний Буг у Летичівському повіті Подільської землі («<span id="kyrsiv">… super villis Holissin et Ploskir о wcze super fluvio Boh iacentu in terra Podoliensi et districtum Latichoviensi sitas</span>»). </p>
+			  <p>У 1923 р. Проскурів стає окружним центром. У місті розташувалися штаб та супутні підрозділи 1-го кінного корпусу Червоного козацтва, у який входили 1-ша Запорізька дивізія Червоного козацтва (Проскурів) та 2-га Чернігівська дивізія Червоного козацтва (<span id="kyrsiv">Старокостянтинів</span>).<p>
+			  <p>У вересні 1938 р. у місті працювала знімальна група під керівництвом класика українського кіно Олександра Довженка, яка знімала тут епізоди кінострічки «Щорс».</p>
+			  <p>8 липня 1941 р. місто окупували німецькі війська, які здійснювали масові розстріли мешканців міста, однак з перших днів окупації і до останніх у місті активно діяли антифашистські підпільники. 25 березня 1944 р. війска 1-го Українского фронту під командуваням маршала Жукова звільнили місто від німців. Очевидцем визволення міста став англійський письменник Джеймс Олдрідж, який того часу був закордонним війсковим кореспондентом, у в своєму репортажі він передав враження від боїв за місто.</p>
+			  <p>15 березня 1941 р. місто стало центром <span id="city">Кам'янець-Подільської області</span>, а 16 січня 1954 - центром <span id="micro">Хмельницької області</span>, і було перейменоване на <span id="city">Хмельницький</span>.</p>
+			</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Хто такий Богдан Хмельницький?</h1>
+              <p>Богдан Хмельницький — одна з найважливіших фігур в українській історії. Народився він 27 грудня 1595 року (6 січня 1596 року за новим стилем). Місцем народження є Суботів, Жовква або Чигирин. Батько-сотник назвав сина Зіновієм, а Богданом його нарекли пізніше — за видатні досягнення у якості гетьмана.</p>
+			  <p>Богдан вчився в єзуїтській школі, хоча й був православним. Він вивчив латину і польську мову, а пізніше — ще й турецьку з французькою. Потім вступив до козацького війська і брав участь у польсько-турецькій війні, тоді й потрапив до полону. Після свого повернення додому, він організував чимало морських походів на турецькі міста і став сотником у Чигирині.</p>
+			  <p>Хмельницького поважав польський король Владислав IV, але проти Польщі Богдана налаштував його особистий ворог, що зруйнував не тільки його маєток, а й сім'ю — вкравши дружину і побивши до півсмерті сина. Король відмовився вирішити конфлікт, тому Богдан Хмельницький узявся за шаблю і знайшов союзників в особі кримських татар.</p>
+			  <p>18 квітня 1648 року Хмельницького проголосили гетьманом. 8 січня 1654 року був підписаний історичний Переяславський договір між Хмельницьким і представниками Москви.</p>
+			  <p>Помер наш герой 27 липня 1657 року (6 серпня за новим стилем), його поховали в Суботові. У 1664 році поляки спалили колишній хутір Хмельницького та розсипали його прах за вітром. </p>
+			  <p><span id="kyrsiv">Детальніше можете прочитати <a href="http://uk.wikipedia.org/wiki/%D0%91%D0%BE%D0%B3%D0%B4%D0%B0%D0%BD_%D0%A5%D0%BC%D0%B5%D0%BB%D1%8C%D0%BD%D0%B8%D1%86%D1%8C%D0%BA%D0%B8%D0%B9">тут</a></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
+</div>
+</div>
+<?php endif;?>
+
+	<?php if($cat == "photo"):?>
+			<div class = "contentPhoto">
+			<?php if(isset($_SESSION["user"])):?>
+                    <div class="add_department">
+                        <form action="accept-file.php" method="post" enctype="multipart/form-data" id="uploadForm">
+						<fieldset align = "center" >
+						<legend>Додати фото</legend>
+                            <input type="file" name="photo" accept="image/jpeg,image/png,image/gif" size="25" id="imageInput" />
+                            <input type="hidden" name="folder" value="photo">
+                            <input type="submit">
+						</fieldset>
+                        </form>
+                    </div>
+            <?php endif;?>
+					<?php 
+                        $dir="img/photo/";
+                        $a = "";
+                        $files = scandir($dir,1);
+						$max_photos = 9;
+						$num_photos = count($files) - 2;
+						$num_pages = intval(($num_photos - 1)/$max_photos) + 1;
+						if (isset($_GET["page"])){
+							$page = $_GET["page"];
+							if ($page < 1) $page = 1;
+							elseif ($page > $num_pages) $page = $num_pages;
+						}
+						else { $page=1;}
+						
+                        for($i=0;$i<count($files) - 2;$i++){
+						
+							if ((($i+1)>($page*$max_photos-$max_photos))&&(($i+1)<=$page*$max_photos)){
+							
+                            $path = $dir.$files[$i];
+if(isset($_SESSION['user']))
+                                $a.= "<div class = 'image'> <div class='delete' onclick='delete_pic(this)'></div>
+								<a class='index".$i."' href=".$path."><img src='".$path."' width='300px' height='200px'  /></a></div>
+								<script type='text/javascript'>
+								$(document).ready(function() {
+								$('.index".$i."').fancybox();
+								});
+								</script>";
+else 
+ $a.= "<div class = 'image'> 
+								<a class='index".$i."' href=".$path."><img src='".$path."' width='300px' height='200px'  /></a></div>
+								<script type='text/javascript'>
+								$(document).ready(function() {
+								$('.index".$i."').fancybox();
+								});
+								</script>";
+								}
+                        }
+						echo('<div class="wrapImage">'.$a."</div>");
+						
+						$next=1;
+						$prev=1;
+					    if ($num_pages>1){
+							if (($page+1)>$num_pages){
+								$next=1;
+							}
+							else $next=$page+1;
+							
+							if (($page-1)<1){
+								$prev = $num_pages;
+							}
+							else $prev=$page-1;
+						}
+						echo '<div class="navs"><div class="navsButton"><a href = "index.php?q=photo&page='.$prev.'">Попередня</a></div>';
+						echo '<div class="navsButton"><a href = "index.php?q=photo&page='.$next.'">Наступна</a></div></div>';
+						
+					
+                        //if($a == "") echo("<span>Нема зображень :-( Завантажте їх!</span>");
+                    ?>
+			</div>
+<div class="wrapper_comment">
+<h3>Коментарі: </h3>
+				<?php
+					$q = $select->selectQuery(array("*"), "comments");
+					while($c = mysql_fetch_array($q)){
+						printf('
+						<div class="comment">
+                    <div class="user_icon"><img src="img/user.png"></div>
+                    <div class="comment_message">
+                        <p>%s</p>
+                    </div>
+                </div>
+						', $c['com']);
+					}
+				?>
+				<?php if(isset($_SESSION['user'])):?>
+                <h3>Залиште коментар: </h3>
+                <div class="comment">
+                    <div class="user_icon"><img src="img/user.png"></div>
+                    <div class="comment_message">
+                        <form action="add_com.php" method="post">
+                            <textarea name="com" requared></textarea>
+                            <input type="submit" />
+                        </form>
+                    </div>
+                </div>
+				<?php endif;?>
+            </div>
+	<?php endif;?>
+	
+	<?php if($cat == "reg"):?>
+		<div class="registration">
+                <h2>Реєстрація</h2>
+                <form class="form_reg" method="post" action="add.php">
+                    <label>Логін:</label>
+                    <input type="text" name = 'log'>
+                    <label>E-mail:</label>
+                    <input type="text" name = 'mail'>
+                    <label>Пароль:</label>
+                    <input type="password" name="pass">
+                    <input type="submit">
+                </form>
+				</div>
+    <?php endif?>
+	
+	<?php if($cat == "study"):?>
+		<div class="contentwrap">
+		
+<div class = "content2">
+    <div id="myCarousel" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="item active">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Хмельницький Політехнічний коледж</h1>
+			  <img src="img/xpk.jpg"></img>
+			  <p><b>Підпорядкованість</b> – Міністерство освіти і науки України</p>
+			  <p><b>Рівень акредитації</b> – перший</p>
+			  <p><b>Рік заснування</b> – серпень 1965</p>
+			  <p><b>Надання статусу коледжу</b> – лютий 1991 року</p>
+			  <p>Хмельницький політехнічний коледж - вищий навчальний заклад першого рівня акредитації (створений на базі колишнього Хмельницького електромеханічного технікуму), який готує фахівців для здійснення практичної роботи у сфері виробництва за професійним спрямуванням спеціальностей кваліфікованого рівня молодший спеціаліст. Наш коледж - один з найбільших не лише в обласному центрі, а й на Хмельниччині серед вищих навчальних закладів І-ІІ рівня акредитації.</p>
+			  <p>В коледжі навчається 1200 студентів, з них більше 900 на денному відділенні. Для підготовки кваліфікованих фахівців створена матеріальна база з сучасним устаткуванням. В двох навчальних корпусах – 47 кабінетів і лабораторій. Допомагають студентам здобувати освіту на рівні сучасних вимог книжковий фонд бібліотеки коледжу, який складається із понад 100 тисяч примірників навчальної літератури, та 9 комп’ютерних лабораторій, підключених до мережі Internet. Три навчально-виробничі майстерні забезпечують проведення всіх видів практики, створена виробнича ділянка, на якій виготовляється корисна продукція за договорами для підприємств та організацій міста.</p>
+			  <p><b>В структуру коледжу входять такі відділення як:</b></p>
+			  <p><span id="kyrsiv">- “Інженерної механіки”;</span></p>
+			  <p><span id="kyrsiv">- “Комп’ютерних систем та мереж”;</span></p>
+			  <p><span id="kyrsiv">- “Програмування“;</span></p>
+			  <p><span id="kyrsiv">- “Економіки та менеджменту”;</span></p>
+			  <p><span id="kyrsiv">- “Заочне відділення”.</span></p>
+			  <p><b>Адреса: </b><span id="kyrsiv">м. Хмельницький, вул. Зарічанська 10, 29015 </span></p>
+			  <p><span id="kyrsiv"><a href="http://xpk.km.ua">Офіційний сайт</a></span></p>
+			</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Хмельницький національний університет</h1>
+			   <img src="img/xnu.jpg"></img>
+               <p><b>Хмельницький національний університет</b> – найбільший на Поділлі вищий навчальний заклад. Здійснює освітню діяльність за широким спектром напрямів підготовки, проводить навчальну, методичну, наукову та виховну роботу. Університет був заснований у 1962 році. За час свого існування він пройшов шлях від загальнотехнічного факультету Українського поліграфічного інституту до Хмельницького національного університету, який має найвищий рівень акредитації – IV, та все необхідне для підготовки фахівців високої кваліфікації: розвинену інфраструктуру, досвідчений професорсько-викладацький склад (74 докторів та 453 кандидатів наук), прекрасну бібліотеку, потужну комп’ютерну базу, багаторічний досвід освітньої та наукової діяльності. Підготовку майбутніх фахівців здійснюють 7 факультетів. Сьогодні в університеті за 40 напрямами підготовки навчається майже 10 тисяч студентів. Ліцензія серія АД №034978, від 06.06.2012 року.</p>
+			   <p><b>В структуру університету входять такі факультети як:</b></p>
+			   <p><span id="kyrsiv">Факультет економіки і управління</span> <b>ФЕУ</b></p>
+			   <p><span id="kyrsiv">Гуманітарно-педагогічний факультет</span> <b>ГПФ</b></p>
+			   <p><span id="kyrsiv">Факультет програмування та комп'ютерних і телекомунікаційних систем</span> <b>ФПКТС</b></p>
+               <p><span id="kyrsiv">Факультет міжнародних відносин</span> <b>ФМВ</b></p>
+               <p><span id="kyrsiv">Факультет інженерної механіки</span> <b>ФІМ</b></p>
+               <p><span id="kyrsiv">Факультет технологій і дизайну</span> <b>ФТД</b></p>
+               <p><span id="kyrsiv">Факультет заочно-дистанційного навчання, післядипломної освіти та довузівської підготовки</b></p>
+			   <p><b>Адреса: </b><span id="kyrsiv">Хмельницький національний університет, м.Хмельницький, вул. Інститутська 11, 29016</span></p>
+			   <p><span id="kyrsiv"><a href="http://www.khnu.km.ua">Офіційний сайт</a></span></p>
+			</div>
+          </div>
+        </div>
+		
+		<div class="item">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Хмельницький Університет Управління та Права </h1>
+			   <img src="img/xnuup.jpg"></img>
+               <p><b>Хмельницький університет управління та права</b> - Державний вищий навчальний заклад IV рівня акредитації. Заснований у 1992 році.</p>
+			   <p>Якісна та чесна освіта, великі перспективи в майбутньому та стабільність сьогодні – це ті основні орієнтири, які вже 20 років поспіль сповідує Хмельницький університет управління та права.</p>
+			   <p>Сучасний вищий навчальний заклад у своїй діяльності поєднує найновіші досягнення науки і традиції класичної вищої школи. Саме завдяки такому успішному поєднанню Хмельницький університет управління та права став найвідомішим осередком правничої та управлінської освіти і науки не лише в нашому регіоні, але й в Україні.</p>
+			   <p><b>Факультети:</b></p>
+			   <p><span id="kyrsiv">- юридичний</span></p>
+			   <p><span id="kyrsiv">- управління та економіки</span></p>
+			   <p><span id="kyrsiv">- заочний</span></p>
+			   <p>Висока якість отриманих в університеті знань прямо пропорційна професійному рівню викладання та успішному застосуванню новітніх освітніх систем і методик. Університет щороку зміцнює свій кадровий потенціал. Наразі на трьох факультетах діє 11 кафедр, юридична клініка (до речі, найстаріша в Україні), студенти та юрисконсульти якої надають високопрофесійні юридичні послуги малозабезпеченим верствам населення, є переможцями всеукраїнських та міжнародних змагань, учасниками багатьох грандових програм. Набирає потужності студентський бізнес-центр, який став базою для практичного навчання студентів та своєрідною школою для майбутніх підприємців.</p>
+			   <p>Для юнаків є можливість отримати звання молодшого лейтенанта запасу, пройшовши курс навчання за програмою підготовки офіцерів запасу Збройних сил України.</p>
+			   <p>Черговим надбанням не лише факультету управління та економіки, але й усієї області є магістратура за спеціальністю «Державна служба». У нашому регіоні лише Хмельницький університет управління та права вже 5 років поспіль готує фахівців такого рівня для органів виконавчої влади та місцевого самоврядування.</p>
+			   <p><b>Адреса: </b><span id="kyrsiv">Хмельницький університет управління та права, м. Хмельницький, вул. Театральна 8, 29013</span></p>
+			   <p text-align="center"><span id="kyrsiv"><a href="http://univer.km.ua">Офіційний сайт</a></span></p> 
+			</div>
+          </div>
+        </div>
+		
+		<div class="item">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Хмельницька гуманітарно-педагогічна академія </h1>
+			   <img src="img/xgpa.jpg"></img>
+               <p><b>Хмельницька гуманітарно-педагогічна академія</b> – один з найдавніших навчальних закладів Поділля. З часу відкриття педагогічних курсів у м. Проскурові в 1921 р., заклад істотно змінився. Дев'яносто два роки, поступово розвиваючись з педкурсів у педтехнікум, педучилище, педагогічний коледж, гуманітарно-педагогічний інститут, гуманітарно-педагогічна академія перебувала й перебуває у центрі подій освітнього життя України на різних етапах її історичної минувшини. </p>
+			   <p>Заклад зазнав реформуючих процесів, що відбувалися в системі вітчизняної освіти. Сьогодні гуманітарно-педагогічна академія – один із провідних вузів Поділля. Він функціонує як чотириступеневий вищий педагогічний заклад I-IV рівнів акредитації. Підготовка спеціалістів ведеться за чотирма освітньо-кваліфікаційними рівнями: “молодший спеціаліст”, “бакалавр”, “спеціаліст”, “магістр”. Випускники отримують спеціальності: “Вихователь дітей дошкільного віку”, “Вчитель початкових класів”, “Вчитель музики, етики та естетики”, “Філолог, викладач іноземної мови та зарубіжної літератури”, „Вчитель образотворчого мистецтва, дизайнер”, „Вчитель хореографії, фізичного виховання (або - іноземної мови)”. В академії навчається близько 2,5 тис. студентів.</p>
+			   <p><b>Факультети та кафедри:</b></p>
+			   <p><span id="kyrsiv">- Факультет початкової освіти та філології</span></p>
+			   <p><span id="kyrsiv">- Факультет дошкільної освіти</span></p>
+			   <p><span id="kyrsiv">- Факультет мистецтв</span></p>
+			   <p><span id="kyrsiv">- Магістратура управління освітою</span></p>
+			   <p><span id="kyrsiv">- Відділення післядипломної освіти</span></p>
+			   <p><b>Адреса: </b><span id="kyrsiv">ХГПА, м.Хмельницький, вул.Проскурівського підпілля 139, 29013</span></p>
+			   <p text-align="center"><span id="kyrsiv"><a href="http://kgpa.km.ua">Офіційний сайт</a></span></p> 
+			</div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
+</div>
+</div>
+<?php endif;?>
+	
+		<div class="footer">
+			<h5 id="counts">Кількість переглядів:  
+			<?php
+				$file="files/count.txt";
+				$count = 0;
+				if (is_file($file)) {
+				$f = fopen($file, "r");
+				$count = fgets($f);
+				fclose($f);
+				}
+				$count++;
+				
+				$f = fopen($file, "w");
+				fwrite($f, "".$count); 
+				fclose($f);
+	
+				echo "".$count;
+			?>
+			</h5>
+			<h5 id="copyrate">&copy; by Kostia Stefanovitch</h5>
+		</div>
+	</div>
+	</div>
+ </body>
+</html>
+
+    <script>
+	$(".login").hover(function(){
+             $(this).find(".form_login").css({visibility: "visible",display: "none"}).show("slow");
+        },function(){
+            $(".login").find(".form_login").css({visibility: "hidden"}).hide("fast");
+        });
+	</script>
+	
+	<script>
+	$("#login").bind("click", function(){
+            var log = $("#log").val();
+            var pass = $("#pass").val();
+
+            $.ajax({
+                type: "post",
+                url: "login.php",
+                data: "log="+log.trim()+"&pass="+pass.trim(),
+                dataType: "html",
+                success: function(result)
+                {
+                    if(result == "yes"){
+                        window.location = "index.php";
+                    }else{
+                        alert("Ви ввели не правильний логін або пароль! Перевірьте введенні дані\nМожливо у вас ввімкнений CapsLook або ви не перемкнули мову.");
+                    }
+                }
+            });
+        });
+	</script>
+
+<script>
+function delete_pic(obj){
+    var parent = obj.parentNode;
+    var name= $(parent).find('img:eq(0)').attr("src");
+
+    var a = confirm("Ви дійсно бажаєте видалити картинку?");
+    if(a){
+        $.ajax({
+            type:	"post",
+            url:	"delete_pic.php",
+            data: "name="+name,
+            dataType:'html',
+            success:function(result){
+                if(result == "yes"){
+                    alert("Картинку видалено!");
+                    $(parent).remove();
+                }
+            }
+        });
+    }
+}
+</script>
+
+    <script>
+      !function ($) {
+        $(function(){
+          $('#myCarousel').carousel()
+        })
+      }(window.jQuery)
+    </script>
+  
+ <script type="text/javascript">
+	$(document).ready(function()
+	{
+		$(".slider").each(function ()
+		{
+			var obj = $(this);
+			$(obj).append("<div class='nav'></div>");
+
+			$(obj).find("li").each(function ()
+			{
+				$(obj).find(".nav").append("<span rel='"+$(this).index()+"'></span>");
+				$(this).addClass("slider"+$(this).index());
+			});
+
+			$(obj).find("span").first().addClass("on");
+		});
+	});
+
+	function sliderJS (obj, sl) // slider function
+	{
+		var ul = $(sl).find("ul");
+		var bl = $(sl).find("li.slider"+obj);
+		var step = $(bl).width();
+		$(ul).animate({marginLeft: "-"+step*obj}, 500);
+	}
+
+	$(document).on("click", ".slider .nav span", function() // slider click navigate
+	{
+		var sl = $(this).closest(".slider");
+		$(sl).find("span").removeClass("on");
+		$(this).addClass("on");
+		var obj = $(this).attr("rel");
+		sliderJS(obj, sl);
+		return false;
+	});
+</script>
